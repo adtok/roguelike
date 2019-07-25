@@ -13,7 +13,7 @@ from map_objects.game_map import GameMap
 from render_functions import render_all, clear_all, RenderOrder
 
 def main():
-    random.seed(42)
+    #random.seed(42)
     screen_width = 80
     screen_height = 50
 
