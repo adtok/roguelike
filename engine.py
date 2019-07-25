@@ -131,24 +131,24 @@ def main():
 
         if show_inventory:
             previous_game_state = game_state
-            game_state = GameStates.SHOW_INEVENTORY
+            game_state = GameStates.SHOW_INVENTORY
 
         if drop_inventory:
             previous_game_state = game_state
             game_state = GameStates.DROP_INVENTORY
     
         if (inventory_index is not None and previous_game_state != GameStates.PLAYER_DEAD and
-                inventory_index < len(inventory.items)):
+                inventory_index < len(player.inventory.items)):
             item = player.inventory.items[inventory_index]
 
-            if game_state == GameStates.SHOW_INEVENTORY:
+            if game_state == GameStates.SHOW_INVENTORY:
                 player_turn_results.extend(player.iventory.use(item))
             else:
                 player_turn_results.extend(player.inventory.drop_item(item))
 
 
         if exit:
-            if game_state in (GameStates.SHOW_INEVENTORY, GameStates.DROP_INVENTORY):
+            if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY):
                 game_state = previous_game_state
             else:
                 return True

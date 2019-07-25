@@ -11,7 +11,7 @@ def menu(con, header, options, width, screen_width, screen_height):
     window = libtcod.console_new(width, height)
 
     # print the header, with auto-wrap
-    libtcod.console_get_default_foreground(window, libtcod.white)
+    libtcod.console_set_default_foreground(window, libtcod.white)
     libtcod.console_print_rect_ex(window, 0, 0, width, height, libtcod.BKGND_NONE, libtcod.LEFT, header)
 
     # print all the options

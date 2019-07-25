@@ -85,7 +85,7 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
     libtcod.console_blit(panel, 0, 0, screen_width, panel_height, 0, 0, panel_y)
 
     if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY):
-        action = 'use' if game_state == GameSates.SHOW_INVENTORY else 'drop'
+        action = 'use' if game_state == GameStates.SHOW_INVENTORY else 'drop'
         inventory_title = f'Press the key next to an item to {action} it'
 
         inventory_menu(con, inventory_title, player.inventory, 50, screen_width, screen_height)
