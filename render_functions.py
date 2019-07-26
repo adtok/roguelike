@@ -4,7 +4,7 @@ from enum import Enum
 
 from game_states import GameStates
 
-from menu import inventory_menu
+from menus import inventory_menu
 
 
 class RenderOrder(Enum):

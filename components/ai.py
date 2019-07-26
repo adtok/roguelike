@@ -2,7 +2,7 @@ import tcod as libtcod
 
 from random import randint
 
-from game_messsages import Message 
+from game_messages import Message 
 
 
 class BasicMonster:
@@ -33,14 +33,14 @@ class ConfusedMonster:
 
         if self.number_of_turns > 0:
             random_x = self.owner.x + randint(0, 2) - 1
-            random_x = self.owner.x + randint(0, 2) - 1
+            random_y = self.owner.y + randint(0, 2) - 1
 
             if random_x != self.owner.x and random_y != self.owner.y:
                 self.owner.move_towards(random_x, random_y, game_map, entities)
 
             self.number_of_turns -= 1
         else:
-            self.owner.ai = previous_ai
+            self.owner.ai = self.previous_ai
             results.append({'message': Message(f"The {self.owner.name} is no longer confused", libtcod.red)})
         
         return results
