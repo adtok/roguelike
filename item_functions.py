@@ -43,6 +43,7 @@ def cast_lightning(*args, **kwargs):
     if target:
         results.append({'consumed': True, 'target': target, 
                         'message': Message(f'A lightning bolt strikes {target.name}. The damage is {damage}')})
+        results.extend(target.fighter.take_damage(damage))
     else:
         results.append({'consumed': False, 'target': None, 'message': Message('No enemy is close enough to strike', libtcod.red) })
     
@@ -67,7 +68,7 @@ def cast_fireball(*args, **kwargs):
         Message(f'The fireball explodes, burning everything withing {radius} tiles.', libtcod.orange)})
     
     for entity in entities:
-        if entity.distance(target_x, target_y) < radius and entity.fighter:
+        if entity.distance(target_x, target_y) <= radius and entity.fighter:
             results.append({'message': Message(f"The {entity.name} gets burned for {damage} hit points.", libtcod.orange)})
             results.extend(entity.fighter.take_damage(damage))
     
