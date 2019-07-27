@@ -57,7 +57,7 @@ class Inventory:
         item.x = self.owner.x
         item.y = self.owner.y
 
-        self.remove_item(items)
+        self.remove_item(item)
         results.append({'item_dropped': item, 'message': Message(f"You dropped the {item.name}", libtcod.yellow)})
 
         return results
