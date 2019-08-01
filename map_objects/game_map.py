@@ -8,6 +8,8 @@ from components.fighter import Fighter
 from components.item import Item
 from components.stairs import Stairs
 
+from loader_functions.initialize_entities import generate_floor_entities
+
 from game_messages import Message 
 
 from item_functions import cast_confuse, cast_fireball, cast_lightning, heal
@@ -125,10 +127,18 @@ class GameMap:
         number_of_monsters = randint(0, max_monsters_per_room)
         number_of_items = randint(0, max_items_per_room)
 
-        monster_chances = {
-            'orc': 80, 
-            'troll': from_dungeon_level([[15, 3], [30, 5], [60, 7]], self.dungeon_level),
-        }
+        monster_chances, monster_generators = generate_floor_entities(self.dungeon_level)
+
+        for i in range(number_of_monsters):
+            x = randint(room.x1+1, room.x2-1)
+            y = randint(room.y1+1, room.y2-1)
+
+            if not any([entity for entity in entities if entity.x == x and entity.y == y]):
+                monster_choice = random_choice_from_dict(monster_chances)
+                monster = monster_generators[monster_choice](x,y)
+                entities.append(monster)
+        
+        # print(entities) # DEBUG
 
         item_chances = {
             'healing_potion': 35, 
@@ -147,20 +157,7 @@ class GameMap:
             if not any([entity for entity in entities if entity.x == x and entity.y == y]):
                 monster_choice = random_choice_from_dict(monster_chances)
 
-                if monster_choice == 'orc':
-                    fighter_component = Fighter(hp=20, defense=0, power=4, xp=35)
-                    ai_component = BasicMonster()
-
-                    monster = Entity(x, y, 'o', libtcod.desaturated_green, 'Orc', blocks=True,
-                                     render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
-                elif monster_choice == 'troll':
-                    fighter_component = Fighter(hp=30, defense=2, power=8, xp=100)
-                    ai_component = BasicMonster()
-
-                    monster = Entity(x, y, 'T', libtcod.darker_green, 'Troll', blocks=True,
-                                     render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
-                else:
-                    print('Something bad happened! (creatures)')
+                
                 
                 entities.append(monster)
 

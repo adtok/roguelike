@@ -74,7 +74,9 @@ class Entity:
                 get_blocking_entities_at_location(entities, self.x + dx, self.y + dy)):
             self.move(dx, dy)
 
-    def distance(self, x, y):
+    def distance(self, x, y, manhattan=False):
+        if manhattan:
+            return abs(x - self.x) + abs(y - self.y)
         return math.sqrt((x - self.x)**2 + (y - self.y)**2)
 
     def move_astar(self, target, entities, game_map):
@@ -121,10 +123,10 @@ class Entity:
             # Delete the path to free memory
         libtcod.path_delete(my_path)
 
-    def distance_to(self, other):
+    def distance_to(self, other, manhattan=False):
         dx = other.x - self.x
         dy = other.y - self.y 
-        return math.sqrt(dx ** 2 + dy ** 2)
+        return math.sqrt(dx ** 2 + dy ** 2) if not manhattan else (abs(dx) + abs(dy))
 
 def get_blocking_entities_at_location(entities, destination_x, destination_y):
     for entity in entities:

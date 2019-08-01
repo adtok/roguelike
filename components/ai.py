@@ -6,14 +6,16 @@ from game_messages import Message
 
 
 class BasicMonster:
+    def __init__(self, att_range=1):
+        self.att_range = att_range 
+
     def take_turn(self, target, fov_map, game_map, entities):
         results = []
 
         # print(f"The {self.owner.name} wonders when it will get to move.")
         monster = self.owner
         if libtcod.map_is_in_fov(fov_map, monster.x, monster.y):
-
-            if monster.distance_to(target) >= 2:
+            if monster.distance_to(target, manhattan=(self.att_range>1)) >= (1 + self.att_range):
                 monster.move_astar(target, entities, game_map)
             
             elif target.fighter.hp > 0:
@@ -22,6 +24,16 @@ class BasicMonster:
         
         return results
 
+# class RangedMonster:
+#     def __init__(self, att_range=2):
+#         self.att_range = att_range
+
+#     def take_turn(self, target, fov_map, game_map, entities):
+#         results = []
+
+#         monster = self.owner
+#         if libtcod.map_is_in_fov(fov_map, monster.x, monster.y):
+#             if monster.distance_to(target) >= (1 + att_range)
 
 class ConfusedMonster:
     def __init__(self, previous_ai, number_of_turns=10):

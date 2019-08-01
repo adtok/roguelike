@@ -1,0 +1,42 @@
+{
+  "comments": "",
+  "data": {
+    "max_monsters_per_room": [[2,1], [3,4], [5,6]],
+    "max_items_per_room": [[1,1], [2,4]],
+    "monsters": [
+      {
+        "name": "orc",
+        "chances": [[80, 1]],
+        "entity": {
+          "char": "o",
+          "color": "desaturated_green",
+          "ai": "basic",
+          "fighter": {
+            "hp": 20,
+            "defense": 0,
+            "power": 4,
+            "xp": 35
+          }
+        }
+      },
+      {
+        "name": "dog",
+        "chances": [[80, 1]],
+        "entity": {
+          "char": "d",
+          "color": "green",
+          "ai": "basic",
+          "fighter": {
+            "hp": 20,
+            "defense": 0,
+            "power": 4,
+            "xp": 35
+          }
+        }
+      }
+    ],
+    "items": [
+
+    ]
+  }
+}
